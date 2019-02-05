@@ -1,10 +1,14 @@
 #include <iostream>
 #include <fstream>
 #include <iterator>
+#include <string>
 #include "Logging.h"
 
+using namespace std;
+
 Logging::Logging(){
-  return;
+  fileName = "";
+  fileStream = NULL;
 }
 
 string Logging::getFileName(){
@@ -28,7 +32,7 @@ bool Logging::openFile(string file){
     if (file != ""){
       fileName = file;
       try{
-        fstream* output = new fstream();
+        std::fstream* output = new std::fstream();
         output->open(fileName, std::fstream::app);
         fileStream = output;
         return true;
@@ -55,7 +59,7 @@ bool Logging::closeFile(){
 }
 
 // TODO: Add reference to date and time in the log file
-/*bool Logging::log(char input[]){
+bool Logging::log(char input[]){
   if (getIsOpen()){
     for(int i = 0; i < std::size_t(input); i++){
       *fileStream << input[i];
@@ -66,11 +70,12 @@ bool Logging::closeFile(){
   else{
     return false;
   }
-}*/
+}
 
-bool Logging::log(string input){
+bool Logging::log(std::string input){
   if (getIsOpen()){
     *fileStream << input << endl;
+    cout << input << endl;
     return true;
   }
   else{

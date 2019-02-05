@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
 
@@ -21,7 +22,7 @@ public:
   bool openFile(string file);
   bool closeFile();
   bool log(string input);
-  //bool log(char input[]);
+  bool log(char input[]);
 
 };
 #endif
