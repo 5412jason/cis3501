@@ -1,23 +1,23 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 using namespace std;
-class Logging
-{
+class Logger {
 private:
 	string fileName;
 	fstream* fileStream;
-
+	bool isOpen;
 public:
-	Logging();
-	~Logging();
+	Logger();
 
 	string getFileName();
-	bool checkOpen();
+	bool getIsOpen();
 	fstream* getFileStream();
 
 	bool openFile(const char file[]);
 	bool closeFile();
+	//bool log(string input);
 	bool log(const char input[]);
-};
 
+};
