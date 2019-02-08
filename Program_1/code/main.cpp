@@ -1,3 +1,8 @@
+//Program Name: Expression processing
+//Programmer Name: Jason Hogan
+//Description: Takes an infix equation as input, the processes it into an expression tree and prints the traversals in prefix, infix, and postfix. 
+//Date Created: 2/7/2019
+
 #include <string>
 #include <cstring>
 #include <iostream>
@@ -16,64 +21,7 @@ struct treeNode{
 	char value;
 };
 
-class strQueue{
-private:
-	struct node{
-		string value;
-		node* next = NULL;
-	};
-	node* head = NULL;
-
-public:
-	void enqueue(string input){
-		if (isEmpty()){
-			node* newNode = new node;
-			newNode->value = input;
-			head = newNode;
-		}
-		else{
-			node* newNode = new node;
-			newNode->value = input;
-			node* current = head;
-			while(current->next != NULL){
-				current = current->next;
-			}
-			current->next = newNode;
-		}
-	}
-	string dequeue(){
-		if (isEmpty()){
-			cout << "[ERROR]] Cannot dequeue item, Queue is empty" << endl;
-			return "";
-		}
-		else{
-			node* temp = head;
-			string value = head->value;
-			head = head->next;
-			delete(temp);
-			return value;
-		}
-	}
-
-	bool isEmpty(){
-		if(head == NULL){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-
-	string top() {
-		if(isEmpty()) {
-			return "";
-		}
-		else {
-			return head->value;
-		}
-	}
-};
-
+// Description: Stack data structure that is used to handle any type of datatypes
 template <typename T>
 class tStack
 {
@@ -94,6 +42,7 @@ public:
 	{
 	}
 
+	// Description: Checks if the stack is empty
 	bool isEmpty() {
 		if (topNode == NULL) {
 			return true;
@@ -103,6 +52,7 @@ public:
 		}
 	}
 
+	// Description: Add a value to the top of the stack
 	void push(T input) {
 		if (isEmpty()) {
 			node* newNode = new node();
@@ -117,6 +67,7 @@ public:
 		}
 	}
 
+	// description: Removes value from the stack and returns it
 	T pop() {
 		T value = topNode->value;
 		if (!isEmpty()) {
@@ -127,11 +78,13 @@ public:
 		return value;
 	}
 
+	// Description: Returns the top value on the stack
 	T top() {
 		return topNode->value;
 	}
 };
 
+// Description: Logs the inputted string to the output file and to the console screen
 void log(const std::string &input){
 	ofstream filestream(FILENAME, std::ios_base::app|std::ios_base::out);
 	filestream.flush();
@@ -142,6 +95,7 @@ void log(const std::string &input){
 
 }
 
+// Description: Checks if the inputed character is a valid operator
 bool isOperator(char input){
 	if (input == '+' || input == '-' || input == '/' || input == '*'){
 		return true;
@@ -151,6 +105,7 @@ bool isOperator(char input){
 	}
 }
 
+// Description: Checks if the inputed character is a valid operand
 bool isOperand(char input){
 	if(input >= 'A' && input <= 'Z'){
 		return true;
@@ -160,6 +115,7 @@ bool isOperand(char input){
 	}
 }
 
+// Description: Returns the weighted precidence of the inputted character operator
 int getOperatorWeight(char input){
 	if (input == '+' || input == '-'){
 		return 1;
@@ -173,15 +129,18 @@ int getOperatorWeight(char input){
 	}
 }
 
+// Description: Converts a postfix string into a tree structure **Assumes the input is already in proper postfix notation**
 treeNode* convertPostfixToTree(string postfix) {
 	tStack<treeNode*> treeStack;
 	treeNode* root = new treeNode();
 	for (int i = 0; i < postfix.size(); i++) {
 		treeNode* node = new treeNode();
 		node->value = postfix[i];
+		// check if operand
 		if (isOperand(postfix[i])) {
 			treeStack.push(node);
 		}
+		// check if operator
 		if (isOperator(postfix[i])) {
 			treeNode* temp = treeStack.pop();
 			node->right = temp;
@@ -194,6 +153,7 @@ treeNode* convertPostfixToTree(string postfix) {
 	return root;
 }
 
+// Description: Converts the infix expression into a postfix expression and returns a string for the postfix. Using stacks.
 string infixToPostfix(string infix){
 	std::string postfix = "";
 	tStack<char> stack;
@@ -202,6 +162,7 @@ string infixToPostfix(string infix){
 	bool errors = false;
 
 	for (int i = 0; i <= infix.size(); i++){
+		// checks if the character value is a space
 		if(infix[i] == ' '){
 			i += 1;
 			if (i > infix.length() - 1 ){
@@ -222,7 +183,7 @@ string infixToPostfix(string infix){
 				errors = true;
 				log("[ERROR] Two operands cannot be next to each other! At indexes: " + to_string(prevIndex) + ',' + to_string(i));
 			}
-			else if (isOperator(infix[prevIndex]) && infix[i] == '('){
+			else if (isOperator(infix[prevIndex]) && infix[i] == ')'){
 				errors = true;
 				log("[ERROR] Missing operand! At indexes: " + to_string(prevIndex) + ',' + to_string(i));
 			}
@@ -278,6 +239,7 @@ string infixToPostfix(string infix){
 	}
 }
 
+// Description: Returns a string with properly formatted operations that the postfix expression will perform according to the order of operations
 string getPostfixOperations(string postfix) {
 	string operations;
 	string operation1;
@@ -298,6 +260,7 @@ string getPostfixOperations(string postfix) {
 	return operations;
 }
 
+// Description: Returns a string that represents a tree structure in a horizontal format with the root node all the way to the left.
 string visualizeTree(treeNode* root, int spacing) {
 	string temp;
 	if (root != NULL) {
@@ -314,6 +277,7 @@ string visualizeTree(treeNode* root, int spacing) {
 	return temp;
 }
 
+// Description: Traverses the tree and returns it in postfix notation
 string getPostfixFromTree(treeNode* root) {
 	string postfix;
 	if (root == NULL) {
@@ -330,6 +294,7 @@ string getPostfixFromTree(treeNode* root) {
 	}
 	return postfix;
 }
+// Description: Traverses the tree and returns it in prefix notation
 string getPrefixFromTree(treeNode* root) {
 	string prefix;
 	if (root == NULL) {
@@ -346,6 +311,7 @@ string getPrefixFromTree(treeNode* root) {
 	}
 	return prefix;
 }
+// Description: Traverses the tree and returns it in prefix notation
 string getInfixFromTree(treeNode* root) {
 	string infix;
 	if (root == NULL) {
@@ -362,7 +328,7 @@ string getInfixFromTree(treeNode* root) {
 	}
 	return infix;
 }
-
+//Description: Returns integer value of the character
 int getVariableValue(char input) {
 	if (input >= 'A' && input <= 'Z') {
 		return input - 64;
@@ -373,6 +339,7 @@ int getVariableValue(char input) {
 	}
 }
 
+// Description: Prints the operations of a prefix expression and displays the solution of it
 void solutionFromPrefix(string prefix) {
 	tStack<string> opStack;
 	tStack<int> intStack;
@@ -395,6 +362,7 @@ void solutionFromPrefix(string prefix) {
 				temp += str2;
 				opStack.push(temp);
 
+				// handle operations
 				if (prefix[i] == '+') {
 					int int1 = intStack.pop();
 					int int2 = intStack.pop();
@@ -433,25 +401,8 @@ void solutionFromPrefix(string prefix) {
 	log("Final Solution: " + to_string(curVal));
 }
 
-// main method for testing stuff
-/*int main(int argc, const char* argv[]) {
-	log("Welcome to the program!");
-	//logger->log("Logging test ");
-	tStack<char> test;
-	test.push('a');
-	log("push: a");
-	test.push('b');
-	log("push: b");
-	test.push('c');
-	log("push: c");
-	while (!test.isEmpty()) {
-		log("pop: " + string(1,test.pop()));
-		//test.pop();
-	}
-	system("PAUSE");
-	return 1;
-}*/
 
+// Description: The main method of the application, Runs on startup.
 int main() {
 	log("\nWelcome to the best program ever!");
 	log("Please enter an input file name: ");
