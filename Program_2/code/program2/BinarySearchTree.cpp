@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "BinarySearchTree.h"
-
+#include <cstdlib>
 
 BinarySearchTree::BinarySearchTree()
 {
@@ -72,7 +72,7 @@ int BinarySearchTree::search(int x)
 	node* current = root;
 
 	while (current != NULL) {
-		if (x = current->value) {
+		if (x == current->value) {
 			opCount++;
 			found = true;
 			break;

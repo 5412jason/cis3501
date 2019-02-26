@@ -6,19 +6,23 @@ class AvlTree
 private:
 	struct node {
 		int value;
-		node* right, *left;
-		int height;
+		node *right = NULL;
+		node *left = NULL;
+		node *twin = NULL;
+		int height = 1;
 	};
 	node* root = NULL;
 
-	node* rightRotation(node* input);
-	node* leftRotation(node* input);
-	node* doubleRightRotation(node* input);
-	node* doubleLeftRotation(node* input);
-	node* insertRecursive(int x, node* input, int *opCount);
-	node* deleteRecursive(int x, node* input, int *opCount);
+	node* llRotation(node* input);
+	node* rrRotation(node* input);
+	node* lrRotation(node* input);
+	node* rlRotation(node* input);
+	node* insertRecursive(int x, node* input, int *opCount, int * ll, int * rr, int *lr, int *rl);
+	node* deleteRecursive(int x, node* input, int * opCount, bool * found, int * ll, int * rr, int *lr, int *rl);
 	node* getMinNode(node* input);
-	node* printRecursive(node* input, int spCount);
+	int getHeightDif(node* input);
+	int getHeight(node* input);
+	string printRecursive(node* input, int spCount);
 public:
 	AvlTree();
 	~AvlTree();
