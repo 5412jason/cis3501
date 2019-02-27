@@ -23,12 +23,15 @@ private:
 	void zagzig(node* input);
 	void zagzag(node* input);
 	string printRecursive(node* input, int spCount);
+	int getHeight(node* input);
+
 public:
 	SplayTree();
 	~SplayTree();
-	void splay(node* input, int* opCount, int* i, int* a, int* ia, int* ai, int* ii, int* aa);
+	void splay(node* T, int* opCount, int* i, int* a, int* ia, int* ai, int* ii, int* aa);
 	void insert(int x, int* opCount, int* i, int* a, int* ia, int* ai, int* ii, int* aa);
 	void search(int x, int* opCount, int* i, int* a, int* ia, int* ai, int* ii, int* aa);
 	void deleteNode(int x, int* opCount, int* i, int* a, int* ia, int* ai, int* ii, int* aa);
 	string printTree();
+	int getMaxHeight();
 };

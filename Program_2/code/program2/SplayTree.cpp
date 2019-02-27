@@ -11,9 +11,9 @@ SplayTree::~SplayTree()
 {
 }
 
-void SplayTree::splay(node * input, int * opCount, int * i, int * a, int * ia, int * ai, int * ii, int * aa)
+void SplayTree::splay(node * T, int * opCount, int * i, int * a, int * ia, int * ai, int * ii, int * aa)
 {
-	while (true){
+	/*while (true){
 		node* parent1 = input->parent;
 		if (parent1 == NULL) {
 			break;
@@ -28,7 +28,7 @@ void SplayTree::splay(node * input, int * opCount, int * i, int * a, int * ia, i
 			}
 			else if(parent1->right == input) {
 				*a += 1;
-				zag(parent2);
+				zag(parent1);
 			}
 			*opCount += 1;
 			break;
@@ -56,7 +56,56 @@ void SplayTree::splay(node * input, int * opCount, int * i, int * a, int * ia, i
 			*opCount++;
 		}
 	}
-	root = input;
+	root = input;*/
+	while (true)
+	{
+		node *p = T->parent;
+		if (!p) break;
+		node *pp = p->parent;
+		if (!pp)//Zig
+		{
+			if (p->left == T)
+				rotateRight(p);
+			else
+				rotateLeft(p);
+			break;
+		}
+		if (pp->left == p)
+		{
+			if (p->left == T)
+			{
+				// zig zig
+				*ii += 1;
+				rotateRight(pp);
+				rotateRight(p);
+			}
+			else
+			{
+				// zag zig
+				*ai += 1;
+				rotateLeft(p);
+				rotateRight(pp);
+			}
+		}
+		else
+		{
+			if (p->left == T)
+			{
+				// zig zag
+				*ia += 1;
+				rotateRight(p);
+				rotateLeft(pp);
+			}
+			else
+			{
+				// zag zag
+				*aa += 1;
+				rotateLeft(pp);
+				rotateLeft(p);
+			}
+		}
+	}
+	root = T;
 }
 
 void SplayTree::insert(int x, int * opCount, int * i, int * a, int * ia, int * ai, int * ii, int * aa)
@@ -86,6 +135,7 @@ void SplayTree::insert(int x, int * opCount, int * i, int * a, int * ia, int * a
 		else if (x < current->value) {
 			if (current->left == NULL) {
 				current->left = newNode;
+				current->left->parent = current;
 				current = current->left;
 				break;
 			}
@@ -96,6 +146,7 @@ void SplayTree::insert(int x, int * opCount, int * i, int * a, int * ia, int * a
 		else if (x > current->value) {
 			if (current->right == NULL) {
 				current->right = newNode;
+				current->right->parent = current;
 				current = current->right;
 				break;
 			}
@@ -193,48 +244,47 @@ string SplayTree::printTree()
 	return structure;
 }
 
+int SplayTree::getMaxHeight()
+{
+	return getHeight(root);
+}
+
 void SplayTree::rotateRight(node * input)
 {
-	node* temp1 = input->left;
-	node* temp2 = temp1->right;
-	node* parent1 = input->parent;
-	if (parent1 != NULL) {
-		if (parent1->right == input) {
-			parent1->right = temp1;
-		}
-		else {
-			parent1->left = temp1;
-		}
+	node *T = input->left;
+	node *B = T->right;
+	node *D = input->parent;
+	if (D)
+	{
+		if (D->right == input) D->right = T;
+		else D->left = T;
 	}
-	if (temp2 != NULL) {
-		temp2->parent = input;
-	}
-	temp1->parent = parent1;
-	temp1->right = input;
-	input->parent = temp1;
-	input->left = temp2;
+	if (B)
+		B->parent = input;
+	T->parent = D;
+	T->right = input;
+
+	input->parent = T;
+	input->left = B;
 }
 
 void SplayTree::rotateLeft(node * input)
 {
-	node* temp1 = input->right;
-	node* temp2 = temp1->left;
-	node* parent1 = input->parent;
-	if (parent1 != NULL) {
-		if (parent1->right == input) {
-			parent1->right = temp1;
-		}
-		else {
-			parent1->left = temp1;
-		}
+	node *T = input->right;
+	node *B = T->left;
+	node *D = input->parent;
+	if (D)
+	{
+		if (D->right == input) D->right = T;
+		else D->left = T;
 	}
-	if (temp2 != NULL) {
-		temp2->parent = input;
-	}
-	temp1->parent = parent1;
-	temp1->left = input;
-	input->parent = temp1;
-	input->right = temp2;
+	if (B)
+		B->parent = input;
+	T->parent = D;
+	T->left = input;
+
+	input->parent = T;
+	input->right = B;
 }
 
 void SplayTree::zig(node * input)
@@ -255,8 +305,8 @@ void SplayTree::zigzag(node * input)
 
 void SplayTree::zigzig(node * input)
 {
-	rotateRight(input);
 	rotateRight(input->parent);
+	rotateRight(input);
 }
 
 void SplayTree::zagzig(node * input)
@@ -267,8 +317,8 @@ void SplayTree::zagzig(node * input)
 
 void SplayTree::zagzag(node * input)
 {
-	rotateLeft(input);
 	rotateLeft(input->parent);
+	rotateLeft(input);
 }
 
 string SplayTree::printRecursive(node * input, int spCount)
@@ -286,4 +336,22 @@ string SplayTree::printRecursive(node * input, int spCount)
 
 	}
 	return temp;
+}
+
+
+int SplayTree::getHeight(node * input)
+{
+	if (input == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of each subtree */
+		int lDepth = getHeight(input->left);
+		int rDepth = getHeight(input->right);
+
+		/* use the larger one */
+		if (lDepth > rDepth)
+			return(lDepth + 1);
+		else return(rDepth + 1);
+	}
 }

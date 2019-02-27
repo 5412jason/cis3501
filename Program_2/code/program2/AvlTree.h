@@ -23,12 +23,14 @@ private:
 	int getHeightDif(node* input);
 	int getHeight(node* input);
 	string printRecursive(node* input, int spCount);
+	int getMaxHeight(node* input);
 public:
 	AvlTree();
 	~AvlTree();
 	string printTree();
-	int insert(int x);
+	int insert(int x, int * ll, int * rr, int *lr, int *rl);
 	int search(int x);
-	int deleteValue(int x);
+	int deleteValue(int x, int * ll, int * rr, int *lr, int *rl);
+	int maxHeight();
 };
 

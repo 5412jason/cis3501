@@ -20,14 +20,10 @@ string AvlTree::printTree()
 	return structure;
 }
 
-int AvlTree::insert(int x)
+int AvlTree::insert(int x, int * ll, int * rr, int *lr, int *rl)
 {
-	int ll = 0;
-	int rr = 0;
-	int rl = 0;
-	int lr = 0;
 	int opCount = 0;
-	root = insertRecursive(x, root, &opCount, &ll, &rr, &lr, &rl);
+	root = insertRecursive(x, root, &opCount, ll, rr, lr, rl);
 	return opCount;
 }
 
@@ -62,21 +58,23 @@ int AvlTree::search(int x)
 	return 0;
 }
 
-int AvlTree::deleteValue(int x)
+int AvlTree::deleteValue(int x, int * ll, int * rr, int *lr, int *rl)
 {
-	int ll;
-	int rr;
-	int rl;
-	int lr;
+
 	bool found = false;
-	int opCount;
-	root = deleteRecursive(x, root, &opCount, &found, &ll, &rr, &lr, &rl);
+	int opCount = 0;
+	root = deleteRecursive(x, root, &opCount, &found, ll, rr, lr, rl);
 	if(found == true){
 		return opCount;
 	}
 	else {
 		return opCount * -1;
 	}
+}
+
+int AvlTree::maxHeight()
+{
+	return getMaxHeight(root);
 }
 
 AvlTree::node * AvlTree::llRotation(node * input)
@@ -149,20 +147,25 @@ AvlTree::node * AvlTree::insertRecursive(int x, node * input, int * opCount, int
 			*opCount+=1;
 		}
 		current->twin = newNode;
+		return input;
 	}
 
 	input->height = max(getHeight(input->left), getHeight(input->right)) + 1;
 	int hDiff = getHeightDif(input);
 	if (hDiff > 1 && x < input->left->value) {
+		*ll += 1;
 		return llRotation(input);
 	}
 	if (hDiff > 1 && x > input->left->value) {
+		*lr += 1;
 		return lrRotation(input);
 	}
 	if (hDiff < -1 && x > input->right->value) {
+		*rr += 1;
 		return rrRotation(input);
 	}
 	if (hDiff < -1 && x < input->right->value) {
+		*rl += 1;
 		return rlRotation(input);
 	}
 	return input;
@@ -225,19 +228,19 @@ AvlTree::node * AvlTree::deleteRecursive(int x, node * input, int * opCount, boo
 
 	int hDiff = getHeightDif(input);
 	if (hDiff > 1 && getHeightDif(input->left) >= 0) {
-		ll+=1;
+		*ll+=1;
 		return llRotation(input);
 	}
 	if (hDiff > 1 && getHeightDif(input->left) < 0) {
-		lr+=1;
+		*lr+=1;
 		return lrRotation(input);
 	}
 	if (hDiff < -1 && getHeightDif(input) <= 0) {
-		rr+=1;
+		*rr+=1;
 		return rrRotation(input);
 	}
 	if (hDiff < -1 && getHeightDif(input) > 0) {
-		rl+=1;
+		*rl+=1;
 		return rlRotation(input);
 	}
 	return input;
@@ -288,5 +291,22 @@ string AvlTree::printRecursive(node * input, int spCount)
 
 	}
 	return temp;
+}
+
+int AvlTree::getMaxHeight(node * input)
+{
+	if (input == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of each subtree */
+		int lDepth = getMaxHeight(input->left);
+		int rDepth = getMaxHeight(input->right);
+
+		/* use the larger one */
+		if (lDepth > rDepth)
+			return(lDepth + 1);
+		else return(rDepth + 1);
+	}
 }
 

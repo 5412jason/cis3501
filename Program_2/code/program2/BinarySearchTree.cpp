@@ -11,6 +11,23 @@ BinarySearchTree::~BinarySearchTree()
 {
 }
 
+int BinarySearchTree::getHeight(node* input)
+{
+	if (input == NULL)
+		return 0;
+	else
+	{
+		/* compute the depth of each subtree */
+		int lDepth = getHeight(input->left);
+		int rDepth = getHeight(input->right);
+
+		/* use the larger one */
+		if (lDepth > rDepth)
+			return(lDepth + 1);
+		else return(rDepth + 1);
+	}
+}
+
 int BinarySearchTree::insert(int x)
 {
 	int opCount = 0;
@@ -35,6 +52,7 @@ int BinarySearchTree::insert(int x)
 					opCount++;
 				}
 				current->twin = newNode;
+				return opCount;
 			}
 			else if (x < current->value) {
 				if (current->left == NULL) {
@@ -110,11 +128,11 @@ BinarySearchTree::node * BinarySearchTree::deleteRecursive(int x, node * input, 
 		return input;
 	}
 	else if (input->value > x) {
-		*count++;
+		*count+=1;
 		input->left = deleteRecursive(x, input->left, count);
 	}
 	else if (input->value < x) {
-		*count++;
+		*count+= 1;
 		input->right = deleteRecursive(x, input->right, count);
 	}
 	else if (input->value == x) {
@@ -122,6 +140,7 @@ BinarySearchTree::node * BinarySearchTree::deleteRecursive(int x, node * input, 
 			node* temp = input;
 			while (temp->twin != NULL) {
 				temp = temp->twin;
+				*count += 1;
 			}
 			free(temp);
 		}
@@ -130,6 +149,7 @@ BinarySearchTree::node * BinarySearchTree::deleteRecursive(int x, node * input, 
 				node* temp = getMinNode(input->right);
 				input->value = temp->value;
 				input->right = deleteRecursive(temp->value, input->right, count);
+				count += 1;
 			}
 			else if (input->left == NULL) {
 				node* temp = input->right;
@@ -167,9 +187,9 @@ string BinarySearchTree::printRecursive(node* input, int spCount)
 
 int BinarySearchTree::deleteValue(int x)
 {
-	int *opCount = new int(0);
-	root = deleteRecursive(x, root, opCount);
-	return *opCount;
+	int opCount = 0;
+	root = deleteRecursive(x, root, &opCount);
+	return opCount;
 }
 
 string BinarySearchTree::printTree()
@@ -177,4 +197,9 @@ string BinarySearchTree::printTree()
 	string structure = printRecursive(root, 0);
 
 	return structure;
+}
+
+int BinarySearchTree::maxHeight()
+{
+	return getHeight(root);
 }
