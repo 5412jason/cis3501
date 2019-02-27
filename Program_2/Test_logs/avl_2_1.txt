@@ -1,0 +1,174 @@
+Inserting 60
+
+     60
+Tree height is: 1
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 10
+
+     60
+          10
+Tree height is: 2
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 2
+
+          60
+     10
+          2
+Tree height is: 2
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 1
+======================================================
+Inserting 3
+
+          60
+     10
+               3
+          2
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 9
+
+          60
+     10
+               9
+          3
+               2
+Tree height is: 3
+right-right: 1
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 7
+
+               60
+          10
+     9
+               7
+          3
+               2
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 1
+left-left: 0
+======================================================
+Inserting 11
+
+               60
+          11
+               10
+     9
+               7
+          3
+               2
+Tree height is: 3
+right-right: 0
+right-left: 1
+left-right: 0
+left-left: 0
+======================================================
+Inserting 6
+
+                    60
+               11
+                    10
+          9
+     7
+               6
+          3
+               2
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 1
+left-left: 0
+======================================================
+Inserting 22
+
+               60
+                    22
+          11
+                    10
+               9
+     7
+               6
+          3
+               2
+Tree height is: 4
+right-right: 1
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 200
+
+                    200
+               60
+                    22
+          11
+                    10
+               9
+     7
+               6
+          3
+               2
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 90
+
+               200
+                    90
+          60
+               22
+     11
+                    10
+               9
+          7
+                    6
+               3
+                    2
+Tree height is: 4
+right-right: 1
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 80
+
+                    200
+               90
+                    80
+          60
+               22
+     11
+                    10
+               9
+          7
+                    6
+               3
+                    2
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 1
+======================================================

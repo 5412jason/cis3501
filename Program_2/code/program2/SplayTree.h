@@ -1,3 +1,7 @@
+//Program Name: Trees and more Trees
+//Programmer Name: Jason Hogan
+//Description: Reads integers from an inital insert file to bst, avl, and splay tree. then performs operations based on the requested action in the operations file
+//Date Created: 2/23/18
 #pragma once
 #include <string>
 using namespace std;
@@ -16,12 +20,12 @@ private:
 
 	void rotateRight(node* input);
 	void rotateLeft(node* input);
-	void zig(node* input);
+	/*void zig(node* input);
 	void zag(node* input);
 	void zigzag(node* input);
 	void zigzig(node* input);
 	void zagzig(node* input);
-	void zagzag(node* input);
+	void zagzag(node* input);*/
 	string printRecursive(node* input, int spCount);
 	int getHeight(node* input);
 

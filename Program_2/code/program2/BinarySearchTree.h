@@ -1,3 +1,7 @@
+//Program Name: Trees and more Trees
+//Programmer Name: Jason Hogan
+//Description: Reads integers from an inital insert file to bst, avl, and splay tree. then performs operations based on the requested action in the operations file
+//Date Created: 2/23/18
 #pragma once
 #include <string>
 using namespace std;

@@ -1,3 +1,7 @@
+//Program Name: Trees and more Trees
+//Programmer Name: Jason Hogan
+//Description: Reads integers from an inital insert file to bst, avl, and splay tree. then performs operations based on the requested action in the operations file
+//Date Created: 2/23/18
 #include "pch.h"
 #include "AvlTree.h"
 #include <algorithm>
@@ -8,11 +12,11 @@ AvlTree::AvlTree()
 {
 }
 
-
 AvlTree::~AvlTree()
 {
 }
 
+//Description: Public function that returns a string with a horizontally structured tree
 string AvlTree::printTree()
 {
 	string structure = printRecursive(root, 0);
@@ -20,13 +24,15 @@ string AvlTree::printTree()
 	return structure;
 }
 
+//Description: Public function that inserts an integer value into the AVL tree
 int AvlTree::insert(int x, int * ll, int * rr, int *lr, int *rl)
 {
 	int opCount = 0;
 	root = insertRecursive(x, root, &opCount, ll, rr, lr, rl);
 	return opCount;
 }
-
+//Description: public Function that searches through the AVL tree for the requested value.
+// If the value can't be found then a negative operation cound will be returned
 int AvlTree::search(int x)
 {
 	int opCount = 0;
@@ -58,6 +64,7 @@ int AvlTree::search(int x)
 	return 0;
 }
 
+// Description: Public function that removes a value from the AVL tree.
 int AvlTree::deleteValue(int x, int * ll, int * rr, int *lr, int *rl)
 {
 
@@ -72,11 +79,13 @@ int AvlTree::deleteValue(int x, int * ll, int * rr, int *lr, int *rl)
 	}
 }
 
+//Description: Public function to get the maxHeight of the root node
 int AvlTree::maxHeight()
 {
 	return getMaxHeight(root);
 }
 
+//Description: Performs a left-left rotation on the inputted node
 AvlTree::node * AvlTree::llRotation(node * input)
 {
 	node* temp1 = input->left;
@@ -91,6 +100,7 @@ AvlTree::node * AvlTree::llRotation(node * input)
 	return temp1;
 }
 
+//Description: Performs a right-right rotation on the inputted node
 AvlTree::node * AvlTree::rrRotation(node * input)
 {
 	node* temp1 = input->right;
@@ -105,6 +115,7 @@ AvlTree::node * AvlTree::rrRotation(node * input)
 	return temp1;
 }
 
+//Description: Performs a left-right rotation on the inputted node
 AvlTree::node * AvlTree::lrRotation(node * input)
 {
 	input->left = rrRotation(input->left);
@@ -113,6 +124,7 @@ AvlTree::node * AvlTree::lrRotation(node * input)
 	return input;
 }
 
+//Description: Perfoms a right-left rotation on the inputted node
 AvlTree::node * AvlTree::rlRotation(node * input)
 {
 	input->right = llRotation(input->right);
@@ -121,6 +133,8 @@ AvlTree::node * AvlTree::rlRotation(node * input)
 	return input;
 }
 
+//Description: Recursively traverses throught the AVL tree to insert the inputted value in the correct position.
+// After value is inserted, the proper rotations are done to ensure the tree is balanced properly
 AvlTree::node * AvlTree::insertRecursive(int x, node * input, int * opCount, int * ll, int * rr, int *lr, int *rl)
 { 
 	//node* y = root;
@@ -171,6 +185,7 @@ AvlTree::node * AvlTree::insertRecursive(int x, node * input, int * opCount, int
 	return input;
 }
 
+//Description: Recursively traverses throught the tree to delete the requested value. If the value isn't found, then the opCount will be negative.
 AvlTree::node * AvlTree::deleteRecursive(int x, node * input, int * opCount, bool * found, int * ll, int * rr, int *lr, int *rl)
 {
 	node* y = root;
@@ -193,7 +208,7 @@ AvlTree::node * AvlTree::deleteRecursive(int x, node * input, int * opCount, boo
 				temp = temp->twin;
 				*opCount += 1;
 			}
-			delete(temp->twin);
+			free(temp->twin);
 			temp->twin = NULL;
 		}
 		else if (input->left == NULL || input->right == NULL) {
@@ -246,6 +261,7 @@ AvlTree::node * AvlTree::deleteRecursive(int x, node * input, int * opCount, boo
 	return input;
 }
 
+//Description: Finds the minimum valued node under the inputted node
 AvlTree::node * AvlTree::getMinNode(node * input)
 {
 	node *current = input;
@@ -255,6 +271,7 @@ AvlTree::node * AvlTree::getMinNode(node * input)
 	return current;
 }
 
+//Description: Gets the difference in height of the right an left child nodes of the inputted node
 int AvlTree::getHeightDif(node * input)
 {
 	if (input == NULL) {
@@ -266,6 +283,7 @@ int AvlTree::getHeightDif(node * input)
 	return left-right;
 }
 
+//Description: Gets the current height of the inputted node
 int AvlTree::getHeight(node * input)
 {
 	if (input == NULL) {
@@ -276,6 +294,7 @@ int AvlTree::getHeight(node * input)
 	}
 }
 
+//Description: Recursively builds a string that represents a horizantal structure of the tree
 string AvlTree::printRecursive(node * input, int spCount)
 {
 	string temp;
@@ -287,12 +306,23 @@ string AvlTree::printRecursive(node * input, int spCount)
 			temp += " ";
 		}
 		temp += to_string(input->value);
+		if (input->twin != NULL) {
+			int tcount = 0;
+			node* x = input;
+			while (x->twin != NULL) {
+				tcount += 1;
+				x = x->twin;
+			}
+			temp += "(" + to_string(tcount);
+			temp += ")";
+		}
 		temp += printRecursive(input->left, spCount);
 
 	}
 	return temp;
 }
 
+//Description: Gets the maximum height of the inputted node
 int AvlTree::getMaxHeight(node * input)
 {
 	if (input == NULL)

@@ -1,5 +1,10 @@
+//Program Name: Trees and more Trees
+//Programmer Name: Jason Hogan
+//Description: Reads integers from an inital insert file to bst, avl, and splay tree. then performs operations based on the requested action in the operations file
+//Date Created: 2/23/18
 #include "SplayTree.h"
 #include <cstdlib>
+#include "pch.h"
 
 
 SplayTree::SplayTree()
@@ -13,50 +18,6 @@ SplayTree::~SplayTree()
 
 void SplayTree::splay(node * T, int * opCount, int * i, int * a, int * ia, int * ai, int * ii, int * aa)
 {
-	/*while (true){
-		node* parent1 = input->parent;
-		if (parent1 == NULL) {
-			break;
-		}
-
-		node* parent2 = parent1->parent;
-
-		if (parent2 == NULL) {
-			if (parent1->left == input) {
-				*i += 1;
-				zig(parent1);
-			}
-			else if(parent1->right == input) {
-				*a += 1;
-				zag(parent1);
-			}
-			*opCount += 1;
-			break;
-		}
-		if (parent2->left == parent1) {
-			if (parent1->left == input) {
-				*ii += 1;
-				zigzig(parent1);
-			}
-			else if (parent1->right == input) {
-				*ai += 1;
-				zagzig(parent1);
-			}
-			*opCount += 1;
-		}
-		if (parent2->right == parent1) {
-			if (parent1->left == input) {
-				*ia += 1;
-				zigzag(parent1);
-			}
-			else if (parent1->right == input) {
-				*aa += 1;
-				zagzag(parent1);
-			}
-			*opCount++;
-		}
-	}
-	root = input;*/
 	while (true)
 	{
 		node *p = T->parent;
@@ -287,7 +248,7 @@ void SplayTree::rotateLeft(node * input)
 	input->right = B;
 }
 
-void SplayTree::zig(node * input)
+/*void SplayTree::zig(node * input)
 {
 	rotateRight(input);
 }
@@ -319,7 +280,7 @@ void SplayTree::zagzag(node * input)
 {
 	rotateLeft(input->parent);
 	rotateLeft(input);
-}
+}*/
 
 string SplayTree::printRecursive(node * input, int spCount)
 {
@@ -332,6 +293,16 @@ string SplayTree::printRecursive(node * input, int spCount)
 			temp += " ";
 		}
 		temp += to_string(input->value);
+		if (input->twin != NULL) {
+			int tcount = 0;
+			node* x = input;
+			while (x->twin != NULL) {
+				tcount += 1;
+				x = x->twin;
+			}
+			temp += "(" + to_string(tcount);
+			temp += ")";
+		}
 		temp += printRecursive(input->left, spCount);
 
 	}

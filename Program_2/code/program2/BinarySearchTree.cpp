@@ -1,3 +1,7 @@
+//Program Name: Trees and more Trees
+//Programmer Name: Jason Hogan
+//Description: Reads integers from an inital insert file to bst, avl, and splay tree. then performs operations based on the requested action in the operations file
+//Date Created: 2/23/18
 #include "pch.h"
 #include "BinarySearchTree.h"
 #include <cstdlib>
@@ -17,11 +21,11 @@ int BinarySearchTree::getHeight(node* input)
 		return 0;
 	else
 	{
-		/* compute the depth of each subtree */
+		// find depth of left and right nodes
 		int lDepth = getHeight(input->left);
 		int rDepth = getHeight(input->right);
 
-		/* use the larger one */
+		
 		if (lDepth > rDepth)
 			return(lDepth + 1);
 		else return(rDepth + 1);
@@ -54,6 +58,7 @@ int BinarySearchTree::insert(int x)
 				current->twin = newNode;
 				return opCount;
 			}
+			// go to the left
 			else if (x < current->value) {
 				if (current->left == NULL) {
 					current->left = newNode;
@@ -65,6 +70,7 @@ int BinarySearchTree::insert(int x)
 					opCount++;
 				}
 			}
+			// go to the right
 			else if (x > current->value) {
 				if (current->right == NULL) {
 					current->right = newNode;
@@ -95,10 +101,12 @@ int BinarySearchTree::search(int x)
 			found = true;
 			break;
 		}
+		// go left
 		else if (x < current->value) {
 			current = current->left;
 			opCount++;
 		}
+		// go right
 		else if (x > current->value) {
 			current = current->right;
 			opCount++;
@@ -138,11 +146,12 @@ BinarySearchTree::node * BinarySearchTree::deleteRecursive(int x, node * input, 
 	else if (input->value == x) {
 		if (input->twin != NULL) {
 			node* temp = input;
-			while (temp->twin != NULL) {
+			while (temp->twin->twin != NULL) {
 				temp = temp->twin;
 				*count += 1;
 			}
-			free(temp);
+			free(temp->twin);
+			temp->twin = NULL;
 		}
 		else {
 			if (input->left != NULL && input->right != NULL) { // neither the left or right side is empty
@@ -179,6 +188,16 @@ string BinarySearchTree::printRecursive(node* input, int spCount)
 			temp += " ";
 		}
 		temp += to_string(input->value);
+		if (input->twin != NULL) {
+			int tcount = 0;
+			node* x = input;
+			while (x->twin != NULL) {
+				tcount += 1;
+				x = x->twin;
+			}
+			temp += "(" + to_string(tcount);
+			temp += ")";
+		}
 		temp += printRecursive(input->left, spCount);
 
 	}

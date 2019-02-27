@@ -1,0 +1,12 @@
+--------Inserts--------
+BST: 0
+AVL: 0
+Splay: 0
+--------Searches--------
+BST: 27
+AVL: 30
+Splay: 31
+--------Deletes--------
+BST: 17
+AVL: 17
+Splay: 30
