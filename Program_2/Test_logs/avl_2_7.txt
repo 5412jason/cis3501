@@ -1,0 +1,323 @@
+Inserting 50
+
+     50
+Tree height is: 1
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 80
+
+          80
+     50
+Tree height is: 2
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 23
+
+          80
+     50
+          23
+Tree height is: 2
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 10
+
+          80
+     50
+          23
+               10
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting -4
+
+          80
+     50
+               23
+          10
+               -4
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 1
+======================================================
+Inserting -7
+
+               80
+          50
+               23
+     10
+          -4
+               -7
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 1
+======================================================
+Inserting 10
+
+               80
+          50
+               23
+     10(1)
+          -4
+               -7
+Tree height is: 3
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 29
+
+               80
+          50
+                    29
+               23
+     10(1)
+          -4
+               -7
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting -80
+
+               80
+          50
+               29
+     23
+          10(1)
+                    -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 1
+left-right: 0
+left-left: 1
+======================================================
+Inserting 234
+
+                    234
+               80
+          50
+               29
+     23
+          10(1)
+                    -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 17
+
+                    234
+               80
+          50
+               29
+     23
+               17
+          10(1)
+                    -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting -1
+
+                    234
+               80
+          50
+               29
+     23
+                    17
+               10(1)
+                    -1
+          -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 1
+left-left: 0
+======================================================
+Inserting 0
+
+                    234
+               80
+          50
+               29
+     23
+                    17
+               10(1)
+                         0
+                    -1
+          -4
+               -7
+                    -80
+Tree height is: 5
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Inserting 234
+
+                    234(1)
+               80
+          50
+               29
+     23
+                    17
+               10(1)
+                         0
+                    -1
+          -4
+               -7
+                    -80
+Tree height is: 5
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Deleted: 80
+Operations: 2
+
+                    234(1)
+               50
+                    29
+          23
+               17
+     10(1)
+                    0
+               -1
+          -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 1
+left-left: 0
+======================================================
+Deleted: 23
+Operations: 2
+
+                    234(1)
+               50
+          29
+               17
+     10(1)
+                    0
+               -1
+          -4
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Could not delete: 200
+Operations: 4
+
+                    234(1)
+               50
+          29
+               17
+     10(1)
+                    0
+               -1
+          -4
+               -7
+                    -80
+Tree height is: 4
+======================================================
+Could not delete: 10
+Operations: 0
+
+                    234(1)
+               50
+          29
+               17
+     10
+                    0
+               -1
+          -4
+               -7
+                    -80
+Tree height is: 4
+======================================================
+Deleted: -4
+Operations: 1
+
+                    234(1)
+               50
+          29
+               17
+     10
+               0
+          -1
+               -7
+                    -80
+Tree height is: 4
+right-right: 0
+right-left: 0
+left-right: 0
+left-left: 0
+======================================================
+Could not delete: 999
+Operations: 4
+
+                    234(1)
+               50
+          29
+               17
+     10
+               0
+          -1
+               -7
+                    -80
+Tree height is: 4
+======================================================
+Could not delete: -40
+Operations: 4
+
+                    234(1)
+               50
+          29
+               17
+     10
+               0
+          -1
+               -7
+                    -80
+Tree height is: 4
+======================================================
