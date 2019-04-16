@@ -1,3 +1,8 @@
+/*!
+ * Author: Jason Hogan
+ * Description: Developed for CIS 3501 program #4. Generates a graph based on datasets inputted and finds the hamiltonian cycle.
+ *
+ */
 #pragma once
 #include <vector>
 #include <iostream>
@@ -5,6 +10,11 @@
 #include "DualStreams.h"
 
 using namespace std;
+
+/*!
+ * Handles all functionality related to creating, modifying, and processing the graph.
+ * 
+ */
 class Graph
 {
 private:

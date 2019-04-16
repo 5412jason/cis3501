@@ -1,0 +1,20 @@
+Enter the name of the input file: 
+Opening: C:\Users\Jason\Documents\CIS3501\Program_4\Test files\Graphs1.txt
+Creating graph #1 with 4 vertices and 5 edges
+  Adding edge: 1, 2
+  Adding edge: 2, 3
+  Adding edge: 2, 4
+  Adding edge: 3, 4
+  Adding edge: 3, 1
+============ Graph #1 ============
+Printing adjacency matrix for the graph: 
+Adding vertex 1
+Adding vertex 2
+Adding vertex 3
+Adding vertex 4
+Removing vertex 4
+Removing vertex 3
+Adding vertex 4
+Adding vertex 3
+Hamiltonian Cycle Exists: 
+1 2 4 3 1 

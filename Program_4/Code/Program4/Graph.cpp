@@ -1,3 +1,8 @@
+/*!
+ * Author: Jason Hogan
+ * Description: Developed for CIS 3501 program #4. Generates a graph based on datasets inputted and finds the hamiltonian cycle.
+ *
+ */
 #include "Graph.h"
 Graph::Graph()
 {
@@ -12,7 +17,12 @@ Graph::Graph(int size)
 Graph::~Graph()
 {
 }
-
+/*!
+ * Adds an edge between the two vertices (v1 and v2) to the adjacency matrix.
+ * 
+ * \param v1
+ * \param v2
+ */
 void Graph::addEdge(int v1, int v2)
 {
 	DualStreams dsout("output.txt");
@@ -33,7 +43,10 @@ void Graph::addEdge(int v1, int v2)
 	adjMatrix[v1][v2] = 1;
 	adjMatrix[v2][v1] = 1;
 }
-
+/*!
+ * Prints the ajdacency graph to the screen and the output.txt file.
+ * 
+ */
 void Graph::printGraph()
 {
 	DualStreams dsout("output.txt");
@@ -48,6 +61,14 @@ void Graph::printGraph()
 	}
 }
 
+/*!
+ * Recursively finds the hamiltonian cycle using a backtracking algorithm.
+ * At each step of the algorithm it will either add a vertex to the cycle vector 
+ * or remove the most recent one if no futher paths are possible.
+ * 
+ * \param cycle
+ * \return 
+ */
 bool Graph::findHamiltonianCycle(vector<int>* cycle) 
 {
 	DualStreams dsout("output.txt");
@@ -83,6 +104,11 @@ bool Graph::findHamiltonianCycle(vector<int>* cycle)
 	return false;
 }
 
+/*!
+ * The function to call from outside the graph class when attempting to find the hamiltonian cycle.
+ * Calls the recursive function findHamiltonianCycle to use backtracking to find the cycle.
+ * 
+ */
 void Graph::hamiltonianCycle()
 {
 	DualStreams dsout("output.txt");

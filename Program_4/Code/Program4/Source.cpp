@@ -1,3 +1,8 @@
+/*!
+ * Author: Jason Hogan
+ * Description: Developed for CIS 3501 program #4. Generates a graph based on datasets inputted and finds the hamiltonian cycle.
+ *
+ */
 #include <string>
 #include <iostream>
 #include <fstream>
@@ -8,6 +13,10 @@
 
 using namespace std;
 
+/*!
+ * Main function that is called on applicaiton startup to test finding hamiltonian cycles on a graph (adjacency matrix).
+ * 
+ */
 void main() {
 	DualStreams dsout("output.txt");
 	dsout.clearfile();
